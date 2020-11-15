@@ -2,7 +2,7 @@ A simple flutter package that support rating, include press or horizontal drag t
 
 **Example**
 ```
-StarRating(
+FlutterStarRating(
   allowHalfRating: true,
   starCount: 5,
   rating: 3,
