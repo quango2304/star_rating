@@ -15,20 +15,18 @@ class SimpleStarRating extends StatefulWidget {
   final RatingChangeCallback onRated;
   final double size;
   final bool allowHalfRating;
-  final Widget halfFilledIcon;
   final Widget filledIcon;
   final Widget nonFilledIcon;//this is needed only when having fullRatedIconData && halfRatedIconData
   final double spacing;
   final bool isReadOnly;
   SimpleStarRating({
     this.starCount = 5,
-    this.isReadOnly = false,
+    this.isReadOnly = true,
     this.spacing = 0.0,
     this.rating = 0.0,
     this.onRated,
     this.size = 25,
     this.allowHalfRating = true,
-    this.halfFilledIcon,
     this.filledIcon,
     this.nonFilledIcon,
   }) {
