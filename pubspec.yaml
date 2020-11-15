@@ -1,8 +1,8 @@
 name: star_rating
 description: A simple flutter package that support rating, include press or horizontal drag to rate
 version: 0.0.1
-author:
-homepage:
+author: Quan Ngo<quanngovan98@gmail.com>
+homepage: https://github.com/quanngovan98/star_rating
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
