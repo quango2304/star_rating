@@ -1,4 +1,4 @@
-name: flutter_star_rating
+name: simple_star_rating
 description: A simple flutter package that support rating, include press or horizontal drag to rate
 version: 0.0.1
 homepage: https://github.com/quanngovan98/star_rating
