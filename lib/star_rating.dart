@@ -1,4 +1,4 @@
-library star_rating;
+library flutter_star_rating;
 
 
 import 'dart:async';
@@ -9,7 +9,7 @@ import './clip_half.dart';
 
 typedef void RatingChangeCallback(double rating);
 
-class StarRating extends StatefulWidget {
+class FlutterStarRating extends StatefulWidget {
   final int starCount;
   final double rating;
   final RatingChangeCallback onRated;
@@ -20,7 +20,7 @@ class StarRating extends StatefulWidget {
   final Widget nonFilledIcon;//this is needed only when having fullRatedIconData && halfRatedIconData
   final double spacing;
   final bool isReadOnly;
-  StarRating({
+  FlutterStarRating({
     this.starCount = 5,
     this.isReadOnly = false,
     this.spacing = 0.0,
@@ -35,10 +35,10 @@ class StarRating extends StatefulWidget {
     assert(this.rating != null);
   }
   @override
-  _StarRatingState createState() => _StarRatingState();
+  _FlutterStarRatingState createState() => _FlutterStarRatingState();
 }
 
-class _StarRatingState extends State<StarRating> {
+class _FlutterStarRatingState extends State<FlutterStarRating> {
   final double halfStarThreshold =
   0.53; //half star value starts from this number
 
@@ -260,7 +260,7 @@ class _StarRatingState extends State<StarRating> {
   Widget _buildDefaultIcon(Color color) {
     return Image.asset(
       'assets/star.png',
-      package: 'star_rating',
+      package: 'flutter_star_rating',
       width: widget.size,
       height: widget.size,
       color: color,
