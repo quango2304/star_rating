@@ -13,8 +13,6 @@ class StarRating extends StatefulWidget {
   final int starCount;
   final double rating;
   final RatingChangeCallback onRated;
-  final Color color;
-  final Color borderColor;
   final double size;
   final bool allowHalfRating;
   final Widget halfFilledIcon;
@@ -22,20 +20,17 @@ class StarRating extends StatefulWidget {
   final Widget nonFilledIcon;//this is needed only when having fullRatedIconData && halfRatedIconData
   final double spacing;
   final bool isReadOnly;
-  final allowEditing;
   StarRating({
     this.starCount = 5,
     this.isReadOnly = false,
     this.spacing = 0.0,
     this.rating = 0.0,
     this.onRated,
-    this.color,
-    this.borderColor,
     this.size = 25,
     this.allowHalfRating = true,
     this.halfFilledIcon,
     this.filledIcon,
-    this.nonFilledIcon, this.allowEditing = false
+    this.nonFilledIcon,
   }) {
     assert(this.rating != null);
   }
@@ -68,14 +63,11 @@ class _StarRatingState extends State<StarRating> {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: AbsorbPointer(
-        absorbing: !widget.allowEditing,
-        child: Wrap(
-            alignment: WrapAlignment.start,
-            spacing: widget.spacing,
-            children: List.generate(
-                widget.starCount, (index) => buildStar(context, index))),
-      ),
+      child: Wrap(
+          alignment: WrapAlignment.start,
+          spacing: widget.spacing,
+          children: List.generate(
+              widget.starCount, (index) => buildStar(context, index))),
     );
   }
 
