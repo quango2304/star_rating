@@ -1,11 +1,11 @@
 name: simple_star_rating
 description: A simple flutter package that support rating, include press or horizontal drag to rate
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/quanngovan98/star_rating
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: '>=2.12.0 <3.0.0'
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:

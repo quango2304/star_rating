@@ -7,16 +7,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import './clip_half.dart';
 
-typedef void RatingChangeCallback(double rating);
+typedef void RatingChangeCallback(double? rating);
 
 class SimpleStarRating extends StatefulWidget {
   final int starCount;
   final double rating;
-  final RatingChangeCallback onRated;
+  final RatingChangeCallback? onRated;
   final double size;
   final bool allowHalfRating;
-  final Widget filledIcon;
-  final Widget nonFilledIcon;//this is needed only when having fullRatedIconData && halfRatedIconData
+  final Widget? filledIcon;
+  final Widget? nonFilledIcon;//this is needed only when having fullRatedIconData && halfRatedIconData
   final double spacing;
   final bool isReadOnly;
   SimpleStarRating({
@@ -42,8 +42,8 @@ class _SimpleStarRatingState extends State<SimpleStarRating> {
 
   //tracks for user tapping on this widget
   bool isWidgetTapped = false;
-  double currentRating;
-  Timer debounceTimer;
+  double? currentRating;
+  Timer? debounceTimer;
   @override
   void initState() {
     currentRating = widget.rating;
@@ -71,12 +71,12 @@ class _SimpleStarRatingState extends State<SimpleStarRating> {
 
   Widget buildStar(BuildContext context, int index) {
     Widget icon;
-    if (index >= currentRating) {
+    if (index >= currentRating!) {
       icon = widget.nonFilledIcon ?? _buildDefaultIcon(Color(0xffB0B0B0));
     } else if (index >
-        currentRating -
+        currentRating! -
             (widget.allowHalfRating ? halfStarThreshold : 1.0) &&
-        index < currentRating) {
+        index < currentRating!) {
       icon = Stack(
         children: [
           widget.nonFilledIcon ?? _buildDefaultIcon(Color(0xffB0B0B0)),
@@ -102,7 +102,7 @@ class _SimpleStarRatingState extends State<SimpleStarRating> {
         isWidgetTapped = false; //reset
       },
       onHover: (event) {
-        RenderBox box = context.findRenderObject();
+        RenderBox box = context.findRenderObject() as RenderBox;
         var _pos = box.globalToLocal(event.position);
         final _rate = calculateRateFromOffset(_pos.dx);
         if(_rate == null) return;
@@ -123,7 +123,7 @@ class _SimpleStarRatingState extends State<SimpleStarRating> {
         onTapDown: (detail) {
           isWidgetTapped = true;
 
-          RenderBox box = context.findRenderObject();
+          RenderBox box = context.findRenderObject() as RenderBox;
           var _pos = box.globalToLocal(detail.globalPosition);
           var _rate = ((_pos.dx - index*widget.spacing) / widget.size);
           var newRating =
@@ -139,13 +139,13 @@ class _SimpleStarRatingState extends State<SimpleStarRating> {
             currentRating = newRating;
           });
           if (widget.onRated != null) {
-            widget.onRated(normalizeRating(currentRating));
+            widget.onRated!(normalizeRating(currentRating!));
           }
         },
         onHorizontalDragUpdate: (dragDetails) {
           isWidgetTapped = true;
 
-          RenderBox box = context.findRenderObject();
+          RenderBox box = context.findRenderObject() as RenderBox;
           var _pos = box.globalToLocal(dragDetails.globalPosition);
           final _rate = calculateRateFromOffset(_pos.dx);
           if(_rate == null) return;
@@ -165,7 +165,7 @@ class _SimpleStarRatingState extends State<SimpleStarRating> {
           debounceTimer = Timer(Duration(milliseconds: 100), () {
             if (widget.onRated != null) {
               currentRating = normalizeRating(newRating);
-              widget.onRated(currentRating);
+              widget.onRated!(currentRating);
             }
           });
         },
@@ -174,7 +174,7 @@ class _SimpleStarRatingState extends State<SimpleStarRating> {
     )
         : GestureDetector(
       onTapDown: (detail) {
-        RenderBox box = context.findRenderObject();
+        RenderBox box = context.findRenderObject() as RenderBox;
         var _pos = box.globalToLocal(detail.globalPosition);
         var i = ((_pos.dx - index*widget.spacing) / widget.size);
         var newRating =
@@ -193,10 +193,10 @@ class _SimpleStarRatingState extends State<SimpleStarRating> {
         });
       },
       onTapUp: (e) {
-        if (widget.onRated != null) widget.onRated(currentRating);
+        if (widget.onRated != null) widget.onRated!(currentRating);
       },
       onHorizontalDragUpdate: (dragDetails) {
-        RenderBox box = context.findRenderObject();
+        RenderBox box = context.findRenderObject() as RenderBox;
         var _pos = box.globalToLocal(dragDetails.globalPosition);
         final _rate = calculateRateFromOffset(_pos.dx);
         if(_rate == null) return;
@@ -216,7 +216,7 @@ class _SimpleStarRatingState extends State<SimpleStarRating> {
         debounceTimer = Timer(Duration(milliseconds: 100), () {
           if (widget.onRated != null) {
             currentRating = normalizeRating(newRating);
-            widget.onRated(currentRating);
+            widget.onRated!(currentRating);
           }
         });
       },
@@ -226,8 +226,8 @@ class _SimpleStarRatingState extends State<SimpleStarRating> {
     return star;
   }
 
-  double calculateRateFromOffset(double dx) {
-    int starIndex;
+  double? calculateRateFromOffset(double dx) {
+    int? starIndex;
     for(int i=0; i< widget.starCount; i++) {
       double starBegin = i* widget.spacing + i*widget.size;
       double starEnd = i * widget.spacing + (i+1) * widget.size;
